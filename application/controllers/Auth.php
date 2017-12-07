@@ -2,52 +2,56 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Auth extends CI_Controller {
-	public function __construct(){
-		parent::__construct();
-		$this->load->library('form_validation');
-		$this->load->helper('form');
-		$this->load->model('User_model');
-		$this->load->model('Role_model');
-	}
+  public function __construct() {
+    parent::__construct();
+    $this->load->library('form_validation');
+    $this->load->helper('form');
+    $this->load->model('User_model');
+  }
 
-	public function index()
-	{
-		if(isset($this->session->userdata['logged_in'])){
-			$this->load->view('dashboard');
-		}
-		else{
-			$this->load->view('landing/landing');
-			$this->Role_model->findRolePermissions('hod');
-		}
-		
-	}
+  public function index() {
+    if(isset($this->session->user_data['logged_in'])) {
+      redirect('dashboard');
+    }
+    else {
+      $this->load->view('auth/landing');
+    }
+  }
 
-	public function login(){
-		$this->form_validation->set_rules('username','username','trim|required');
+  public function login(){
+    $this->form_validation->set_rules('username','username','trim|required');
 		$this->form_validation->set_rules('password','password','trim|required');
 
 		if($this->form_validation->run()==FALSE){
-			$this->load->view('landing/landing');
+			$this->load->view('auth/landing');
 		}
 		else{
 			$data = array(
 				'username' => $this->input->post('username'),
 				'password' => $this->input->post('password')
 			);
-			$user = $this->User_model->login($data);
-			if($user['status']){
-				$user_data = array (
-					'first_name' => $user['result']->firstName,
-					'last_name' => $user['result']->lastName
-				);
-				echo "Welcome ".$user['result']->firstName." ".$user['result']->lastName;
+			if($this->User_model->checkUser($data)) {
+				$userData = $this->User_model->getUserData($data['username']);
+				// print_r($userData);
+				$this->session->set_userdata('logged_in',$userData);
+        $this->load->view('dashboard',$userData);
 			}
 			else {
 				$data = array(
-					'error_msg' => $user['result']
+					'error_msg' => "Username/Password not found."
 				);
-				$this->load->view('landing/landing',$data);
+				$this->load->view('auth/landing',$data);
 			}
 		}
-	}
+  }
+
+  public function _reset_password() {
+    if(isset($this->session->user_data['logged_in'])) {
+
+    }
+    else {
+      $this->load->view('auth/reset_password');
+    }
+  }
+
 }
