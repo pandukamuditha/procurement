@@ -23,8 +23,9 @@ class User_model extends CI_Model {
 		$this->db->where('username',$username);
 		$query = $this->db->get();
 		$row = $query->row();
-
+		
 		$data = array(
+			'username' => $username,
 			'firstName' => $row->first_name,
 			'lastName' => $row->last_name,
 			'role' => $this->getRole($username),

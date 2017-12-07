@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<title>UCSC e-Procurement</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/auth/landing.css">
@@ -9,7 +10,7 @@
 <body>
     <div class="container">
         <div class="card card-container">
-            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            <img id="profile-img" class="profile-img-card" src="<?php echo base_url(); ?>img/logo2.png" />
             <p id="profile-name" class="profile-name-card"></p>
             <?php echo form_open('Auth/login','class="form-signin"'); ?>
                 <span id="reauth-email" class="reauth-email"></span>

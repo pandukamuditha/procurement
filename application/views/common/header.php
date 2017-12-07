@@ -11,6 +11,7 @@
 
     <title>UCSC e-Procurement System</title>
 
+
     <!-- Bootstrap Core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
@@ -25,33 +26,41 @@
 
     <!-- Custom Fonts -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url(); ?>css/pr_final.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>css/pr_details.css" rel="stylesheet">
+    
+
 </head>
 
 <body>
 
+
     <div id="wrapper">
 
         <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; background:#00ba8b; height: 70px; " >
+            <img src=" <?php echo base_url() ?>img/logo.png ?>" style = "height:40px; width:40px">
             <div class="navbar-header">
+                
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">UCSC e-Procurement System</a>
+
+                <a class="navbar-brand" href="<?php echo base_url().'index.php/Dashboard_main'; ?>" style="color:black"><b>UCSC e-Procurement System</b></a>
             </div>
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-envelope fa-fw" style="color:black" ></i> <i class="fa fa-caret-down" style="color:black"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-messages">
                         <li>
                             <a href="#">
                                 <div>
-                                    <strong>John Smith</strong>
+                                    <strong>Mr. Samasasekara</strong>
                                     <span class="pull-right text-muted">
                                         <em>Yesterday</em>
                                     </span>
@@ -63,7 +72,7 @@
                         <li>
                             <a href="#">
                                 <div>
-                                    <strong>John Smith</strong>
+                                    <strong>Mr. Liyanathantri</strong>
                                     <span class="pull-right text-muted">
                                         <em>Yesterday</em>
                                     </span>
@@ -75,7 +84,7 @@
                         <li>
                             <a href="#">
                                 <div>
-                                    <strong>John Smith</strong>
+                                    <strong>Mr.Panduka</strong>
                                     <span class="pull-right text-muted">
                                         <em>Yesterday</em>
                                     </span>
@@ -96,7 +105,7 @@
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw" style="color:black"></i> <i class="fa fa-caret-down" style="color:black"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
@@ -104,7 +113,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="<?php echo base_url(); ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
