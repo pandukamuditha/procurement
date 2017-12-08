@@ -10,8 +10,8 @@ class Auth extends CI_Controller {
   }
 
   public function index() {
-    if(isset($this->session->user_data['logged_in'])) {
-      redirect('dashboard');
+    if(isset($this->session->userdata['logged_in'])) {
+      redirect('dashboard_main');
     }
     else {
       $this->load->view('auth/landing');
