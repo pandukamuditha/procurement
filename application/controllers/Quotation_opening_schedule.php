@@ -9,11 +9,11 @@ class Quotation_opening_schedule extends CI_Controller {
 
     $create_quotation_opening = array('index');
 
-    if(in_array($this->router->method, $create_quotation_opening)){
-      if(!$permissions['']){
-        redirect('Auth','refresh');
-      }
-    }
+    // if(in_array($this->router->method, $create_quotation_opening)){
+    //   if(!$permissions['']){
+    //     redirect('Auth','refresh');
+    //   }
+    // }
   }
 
   public function index() {
