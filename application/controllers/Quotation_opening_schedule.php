@@ -1,26 +1,23 @@
 <?php
 
 class Quotation_opening_schedule extends CI_Controller {
-  // private $permissions = $this->session->user_data['logged_in']['permissions'];
-
   public function __construct(){
     parent::__construct();
     $this->load->library('form_validation');
     $this->load->helper('form');
-    //
-    // $create_quotation_opening = array('index');
-    //
-    // if(in_array($this->router->method, $create_quotation_opening)){
-    //   if(!$permissions['A']){
-    //     redirect('Auth','refresh');
-    //   }
-    // }
+    $permissions = $this->session->userdata['logged_in']['permissions'];
+
+    $create_quotation_opening = array('index');
+
+    if(in_array($this->router->method, $create_quotation_opening)){
+      if(!$permissions['']){
+        redirect('Auth','refresh');
+      }
+    }
   }
 
   public function index() {
     $this->load->view('quotation_opening_form');
-    echo $this->session->user_data;
-    echo "Hello";
   }
 
   public function beginQuotation()
