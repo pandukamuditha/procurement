@@ -1,0 +1,18 @@
+@charset "utf-8";
+
+.thead{
+	text-align:left;
+	height:30px;
+	font-size:16px;
+	font-family:Helvetica;
+}
+.tdata{
+	height:30px;
+}
+.info{
+	width:250px;
+}
+.info1{
+	width:400px;
+}
+

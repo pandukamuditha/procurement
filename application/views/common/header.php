@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>UCSC e-Procurement System</title>
-    
+
 
     <!-- Bootstrap Core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -26,6 +26,19 @@
 
     <!-- Custom Fonts -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- DataTables CSS -->
+    <link href="<?php echo base_url(); ?>css/common/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="<?php echo base_url(); ?>css/common/dataTables.responsive.css" rel="stylesheet">
+
+    <!-- Optional CSS -->
+    <?php
+      if(isset($opt_css)){
+        echo "<link href=\"".base_url().$opt_css."\" rel=\"stylesheet\">";
+      }
+     ?>
 </head>
 
 <body>
