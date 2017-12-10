@@ -14,4 +14,17 @@ class Purchase_requests_model extends CI_Model {
     $results = $query->result();
   }
 
+  public function getRequestDetails($pr_ids){
+    $request_details = array();
+    foreach($pr_ids as $pr_id){
+      $this->db->from('purchase_request_details');
+      $this->db->where('pr_id',$pr_id);
+      $query = $this->db->get();
+      $request = $query->row();
+
+      array_push($request_details, $request);
+    }
+    return $request_details;
+  }
+
 }

@@ -69,7 +69,12 @@
 							</tr>
 						</thead>
 						<tbody>
-
+							<?php
+								foreach ($pending_requests as $request) {
+									echo "<tr>";
+									echo "<td>".$request->dept_id."</td>";
+								}
+							?>
 						</tbody>
 					</table>
 					<!-- /.table-responsive -->

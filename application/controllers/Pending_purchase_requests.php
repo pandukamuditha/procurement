@@ -20,20 +20,23 @@ class Pending_purchase_requests extends CI_Controller {
   public function index(){
     $role = $this->session_data['role'];
     $dept = $this->session_data['dept'];
-    echo $dept;
+    echo $role->role_name.$dept;
 
-    $pending_requests;
+    $data = array();
     $results = $this->Purchase_requests_model->getPendingRequests($role,$dept);
+    echo "Hello";
+    print_r($results);
     if(isset($results)){
       $pr_ids = array();
       foreach($results as $item){
         array_push($pr_ids,$item->pr_id);
       }
       $pending_requests = $this->Purchase_requests_model->getRequestDetails($pr_ids);
+      $data['pending_requests'] = $pending_requests;
     }
 
     $this->load->view('common/header');
-    $this->load->view('purchase_request/pending_requests');
+    $this->load->view('purchase_request/pending_requests',$data);
     $this->load->view('common/footer');
   }
 }
