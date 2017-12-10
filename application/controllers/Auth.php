@@ -32,12 +32,8 @@ class Auth extends CI_Controller {
 			);
 			if($this->User_model->checkUser($data)) {
 				$userData = $this->User_model->getUserData($data['username']);
-				// print_r($userData);
 				$this->session->set_userdata('logged_in',$userData);
 
-        // $this->load->view('common/header');
-        // $this->load->view('dashboard/dashboard',$userData);
-        // $this->load->view('common/footer');
         redirect('/Dashboard_main');
 
 			}
