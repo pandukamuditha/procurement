@@ -67,14 +67,14 @@ class User_model extends CI_Model {
 		return $permissions;
 	}
 
-	public function getUserDeptId($username){
+	public function getUserDep($username){
 		$this->db->from('user_department AS A');
 		$this->db->join('departments AS B','A.department_id = B.department_id');
 		$this->db->where('user_name',$username);
-		$this->db->select('B.dept_name');
+		$this->db->select('B.department_id, B.department_name');
 		$query = $this->db->get();
 		$row = $query->row();
 
-		return $row->dept_id;
+		return $row;
 	}
 }
