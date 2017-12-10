@@ -6,12 +6,13 @@ class Purchase_requests_model extends CI_Model {
     parent::__construct();
   }
 
-  public function getPendingRequests($role,$dept){
+  public function getPendingRequests($roleId,$deptId){
     $this->db->from('purchase_request_approval');
-    $this->db->where($role->role_id,0);
+    $this->db->where($roleId,0);
     $query = $this->db->get();
 
     $results = $query->result();
+    return $results;
   }
 
   public function getRequestDetails($pr_ids){

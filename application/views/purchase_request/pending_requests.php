@@ -63,6 +63,7 @@
 					<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
 						<thead>
 							<tr>
+								<th>Request ID</th>
 								<th>Department</th>
 								<th>Division</th>
 								<th>Request Date(s)</th>
@@ -71,8 +72,12 @@
 						<tbody>
 							<?php
 								foreach ($pending_requests as $request) {
-									echo "<tr>";
+									echo "<tr class='clickable-row' href=\"".base_url()."view/".$request->pr_id."\">";
+									echo "<td>".$request->pr_id."</td>";
 									echo "<td>".$request->dept_id."</td>";
+									echo "<td>".$request->dept_division."</td>";
+									echo "<td>".date('Y/m/d',strtotime($request->timestamp))."</td>";
+									echo "</tr>";
 								}
 							?>
 						</tbody>
@@ -85,3 +90,11 @@
 		</div>
 		<!-- /.col-lg-12 -->
 	</div>
+
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+	$(".clickable-row").click(function() {
+		window.location = $(this).data("href");
+	});
+});
+</script>
