@@ -47,12 +47,16 @@ class Auth extends CI_Controller {
   }
 
   public function _reset_password() {
-    if(isset($this->session->user_data['logged_in'])) {
+    if(isset($this->session->userdata['logged_in'])) {
 
     }
     else {
       $this->load->view('auth/reset_password');
     }
+  }
+
+  public function logout(){
+    $this->session->unset_userdata('logged_in');
   }
 
 }
