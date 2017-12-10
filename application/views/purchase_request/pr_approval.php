@@ -82,11 +82,11 @@
 						<table class="table table-bordered">
 							<tr>
 								<td scope="row" style="width:10%"><b>Date</b></td>
-								<td style="width:90%"><input type="text" name="date" class="tdata" readonly></td>
+								<td style="width:90%"><input type="text" name="date" class="tdata" value="<?php echo date('Y/m/d',strtotime($request_details->timestamp)); ?>" readonly></td>
 							</tr>
 							<tr>
 								<td scope="row"><b>Department/Division/Center Name</b></td>
-								<td><input type="text" name="date" class="tdata" style="width:100%;" readonly></td>
+								<td><input type="text" name="date" class="tdata" style="width:100%;" value="<?php echo $request_details->dept_division; ?>" readonly></td>
 							</tr>
 						</table>
 					</div>
@@ -107,6 +107,19 @@
 									<th class="col-md-2">Date of Required</th>
 								</tr>
 							</thead>
+							<tbody>
+								<?php
+									foreach ($items as $item) {
+										echo "<tr>";
+										echo "<td>".$item->item_id."</td>";
+										echo "<td>".$item->item_name." - ".$item->description."</td>";
+										echo "<td>".$item->quantity."</td>";
+										echo "<td>".$item->estimated_cost."</td>";
+										echo "<td>".date('Y/m/d',strtotime($item->date_of_required))."</td>";
+										echo "</tr>";
+									}
+								?>
+							</tbody>
 						</table>
 					</div>
 				</div>
@@ -115,7 +128,7 @@
 
 				<div class="container-fluid middle">
 					<label for="purpose"><b>Purpose of Requirement:</b></label>
-					<input type="text" name="purpose" style="width:100%;height:100%;position:relative;" readonly>
+					<input type="text" name="purpose" style="width:100%;height:100%;position:relative;" value="<?php echo $request_details->purpose; ?>" readonly>
 				</div>
 
 				<div class="row" style="height:30px;"></div>
@@ -125,7 +138,7 @@
 						<table class="table">
 							<tr>
 								<td style="width:30%"><b>Division/Room Number which Fixed Assets to be located:</b></td>
-								<td style="width:70%"><input type="text" name="location" class="tdata" style="width:100%;height:100" readonly></td>
+								<td style="width:70%"><input type="text" name="location" class="tdata" style="width:100%;height:100" value="<?php echo $request_details->location; ?>" readonly></td>
 							</tr>
 						</table>
 					</div>
@@ -137,22 +150,235 @@
 		</div>
 	</div>
 	<div class="row ">
-		<div class="col-lg-5 col-lg-offset-1"><div class="well">
-			<h4>Head of Department</h4>
-		</div></div>
-		<div class="col-lg-5 "><div class="well">
-			<h4>Director</h4>
-		</div></div>
-	</div>
-	<div class="row ">
-		<div class="col-lg-5 col-lg-offset-1"><div class="well">
-			<h4>Deputy Bursar</h4>
-		</div></div>
-		<div class="col-lg-5 "><div class="well">
-			<h4>Senior Assistant Bursar</h4>
-		</div></div>
+
+		<div class="col-lg-5 col-lg-offset-1">
+			<div class="well">
+				<h4>Head of Department</h4>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#hodModal">Forward</button>
+			</div>
+		</div>
+
+		<div class="col-lg-5 ">
+			<div class="well">
+				<h4>Director</h4>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dirAcceptModal">Accept & Forward</button>
+				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#dirRejectModal">Decline</button>
+			</div>
+		</div>
 	</div>
 
+	<div class="row ">
+
+		<div class="col-lg-5 col-lg-offset-1">
+			<div class="well">
+				<h4>Deputy Bursar</h4>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#depburAcceptModal">Accept & Forward</button>
+				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#depburRejectModal">Decline</button>
+			</div>
+		</div>
+
+		<div class="col-lg-5 ">
+			<div class="well">
+				<h4>Senior Assistant Bursar</h4>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sabModal">Assign To Clerk</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- HOD Modal -->
+	<div id="hodModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Confirm Request Forward</h4>
+				</div>
+				<div class="modal-body">
+					<p>Request will be sent to Director for further processing.</p>
+				</div>
+				<div class="modal-footer">
+					<a href="<?php echo site_url('pending_purchase_requests/approve/'.$this->uri->segment(3)) ?>" class="btn btn-default" role="button">Confirm</a>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Director Accept Modal -->
+	<div id="dirAcceptModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Confirm Request Forward</h4>
+				</div>
+				<div class="modal-body">
+					<p>Request will be sent to Deputy Bursar for further processing.</p>
+				</div>
+
+
+				<?php echo form_open('pending_purchase_requests/approve/'.$this->uri->segment(3)) ?>
+				<div class="container">
+					<div class="form-group">
+						<label>Comments:</label>
+						<textarea name="comments" class="form-control" rows="3" style="width: 50%; height: 65px; position: "></textarea>
+					</div>
+				</div>
+
+
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-default">Confirm</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				</div>
+				<?php echo form_close() ?>
+
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Director Reject Modal -->
+	<div id="dirRejectModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Confirm Request Rejection</h4>
+				</div>
+				<div class="modal-body">
+					<p>Request will be rejected.</p>
+				</div>
+
+				<?php echo form_open('pending_purchase_requests/reject/'.$this->uri->segment(3)) ?>
+				<div class="container">
+					<div class="form-group">
+						<label>Comments:</label>
+						<textarea name="comments" class="form-control" rows="3" style="width: 50%; height: 65px; position: "></textarea>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-danger">Confirm</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				</div>
+				<?php echo form_close() ?>
+
+			</div>
+
+		</div>
+	</div>
+
+
+	<!-- Dep Bursar Accept Modal -->
+	<div id="depburAcceptModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Confirm Request Forward</h4>
+				</div>
+				<div class="modal-body">
+					<p>Request will be sent to SAB for further processing.</p>
+				</div>
+
+
+				<?php echo form_open('pending_purchase_requests/approve/'.$this->uri->segment(3)) ?>
+				<div class="container">
+					<div class="form-group">
+						<label>Comments:</label>
+						<textarea name="comments" class="form-control" rows="3" style="width: 50%; height: 65px; position: "></textarea>
+					</div>
+				</div>
+
+
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-default">Confirm</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				</div>
+				<?php echo form_close() ?>
+
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Dep Bursar Reject Modal -->
+	<div id="depburRejectModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Confirm Request Rejection</h4>
+				</div>
+				<div class="modal-body">
+					<p>Request will be rejected.</p>
+				</div>
+
+				<?php echo form_open('pending_purchase_requests/reject/'.$this->uri->segment(3)) ?>
+				<div class="container">
+					<div class="form-group">
+						<label>Comments:</label>
+						<textarea name="comments" class="form-control" rows="3" style="width: 50%; height: 65px; position: "></textarea>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-danger">Confirm</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				</div>
+				<?php echo form_close() ?>
+
+			</div>
+
+		</div>
+	</div>
+
+
+	<!-- SAB Modal -->
+	<div id="sabModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Accept Purchase Request</h4>
+				</div>
+				<div class="modal-body">
+					<p>Accept purchase request for further processing.</p>
+				</div>
+				<?php echo form_open('pending_purchase_requests/sab_accept/'.$this->uri->segment(3)) ?>
+				<div class="container">
+					<div class="form-group">
+            <label>Select Procurement Clerk</label>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="pc" id="optionsRadios1" value="pc_1" checked>Procurement Clerk 1</label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="pc" id="optionsRadios2" value="pc_2">Procurement Clerk 2</label>
+            </div>
+          </div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-default">Confirm</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				</div>
+				<?php echo form_close() ?>
+			</div>
+
+		</div>
+	</div>
 
 	<!-- /.container-fluid -->
 </div>

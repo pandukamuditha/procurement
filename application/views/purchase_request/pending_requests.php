@@ -72,7 +72,7 @@
 						<tbody>
 							<?php
 								foreach ($pending_requests as $request) {
-									echo "<tr class='clickable-row' href=\"".base_url()."view/".$request->pr_id."\">";
+									echo "<tr class='clickable-row' data-href='".site_url('pending_purchase_requests/view/'.$request->pr_id)."'>";
 									echo "<td>".$request->pr_id."</td>";
 									echo "<td>".$request->dept_id."</td>";
 									echo "<td>".$request->dept_division."</td>";

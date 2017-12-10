@@ -28,4 +28,18 @@ class Purchase_requests_model extends CI_Model {
     return $request_details;
   }
 
+  public function getItems($pr_id){
+    $this->db->from('purchase_request_assets_details');
+    $this->db->where('pr_id',$pr_id);
+    $query = $this->db->get();
+
+    $items = $query->result();
+    return $items;
+  }
+
+  public function setApproval($role,$pr_id){
+    $this->db->set($role,1);
+    $this->db->set();
+  }
+
 }
