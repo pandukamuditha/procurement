@@ -29,6 +29,7 @@ class User_model extends CI_Model {
 			'lastName' => $row->last_name,
 			'role' => $this->getRole($username),
 			'permissions' => $this->getPermissions($this->getRole($username)->role_id),
+			'dept' => $this->getUserDept($username),
 		);
 
 		return $data;
@@ -64,5 +65,16 @@ class User_model extends CI_Model {
 		}
 
 		return $permissions;
+	}
+
+	public function getUserDept($username){
+		$this->db->from('user_department AS A');
+		$this->db->join('departments AS B','A.department_id = B.department_id');
+		$this->db->where('user_name',$username);
+		$this->db->select('B.dept_name');
+		$query = $this->db->get();
+		$row = $query->row();
+
+		return $row->dept_name;
 	}
 }
