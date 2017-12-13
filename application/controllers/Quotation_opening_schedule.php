@@ -18,9 +18,8 @@ class Quotation_opening_schedule extends CI_Controller {
   }
 
   public function index() {
-    $this->load->view('quotation_opening_form');
+    $this->load->view('quotation/quotation_opening_form');
     echo $this->session->user_data;
-    echo "Hello";
   }
 
   public function beginQuotation()

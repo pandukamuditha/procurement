@@ -9,11 +9,11 @@
 <body>
     <div class="container">
         <div class="card card-container">
-            <p id="profile-name" class="profile-name-card">Enter Username</p>
-            <?php echo form_open('auth/email_reset_password','class="form-signin"'); ?>
+            <p id="profile-name" class="profile-name-card">Enter New Password</p>
+            <?php echo form_open('auth/set_reset_password','class="form-signin"'); ?>
                 <span id="reauth-email" class="reauth-email"></span>
-                <input name="username" type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
-                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Reset Password</button>
+                <input name="password" type="text" id="inputUsername" class="form-control" placeholder="Password" required autofocus>
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Save</button>
             <?php echo form_close(); ?>
 						<?php
 						echo "<div class='error_msg'>";

@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <div class="card card-container">
-            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            <img id="profile-img" class="profile-img-card" src="<?php echo base_url('img/logo2.png') ?>" style="width: 110px; height: 110px;"/>
             <p id="profile-name" class="profile-name-card"></p>
             <?php echo form_open('Auth/login','class="form-signin"'); ?>
                 <span id="reauth-email" class="reauth-email"></span>
@@ -25,7 +25,7 @@
 						echo validation_errors();
 						echo "</div>";
 					?>
-						<a class="forgot-password" href="<?php echo base_url() ?>index.php/Auth/_reset_password">Reset Password</a>
+						<a class="forgot-password" href="<?php echo base_url() ?>index.php/auth/reset_password">Reset Password</a>
         </div>
     </div>
 

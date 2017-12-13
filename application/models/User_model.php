@@ -6,9 +6,9 @@ class User_model extends CI_Model {
 		parent::__construct();
 	}
 
-	public function checkUser($data) {
+	public function checkUser($username) {
 		$this->db->from('users');
-		$this->db->where($data);
+		$this->db->where('username',$username);
 		$query = $this->db->get();
 		$row = $query->row();
 
@@ -16,6 +16,15 @@ class User_model extends CI_Model {
 			return true;
 		}
 		return false;
+	}
+
+	public function getPassword($username){
+		$this->db->from('users');
+		$this->db->where('username',$username);
+		$query = $this->db->get();
+
+		$row = $query->row();
+		return $row->password;
 	}
 
 	public function getUserData($username) {
@@ -76,5 +85,61 @@ class User_model extends CI_Model {
 		$row = $query->row();
 
 		return $row;
+	}
+
+	public function getUserEmail($username){
+		$this->db->select('email');
+		$this->db->from('users');
+		$this->db->where('username',$username);
+		$query = $this->db->get();
+
+		$email = $query->row()->email;
+		return $email;
+	}
+
+	public function getUserFirstName($username){
+		$this->db->select('first_name');
+		$this->db->from('users');
+		$this->db->where('username',$username);
+		$query = $this->db->get();
+
+		$firstName = $query->row()->first_name;
+		return $firstName;
+	}
+
+	public function addPasswordReset($username,$token){
+		$data = array(
+			'username' => $username,
+			'token' => $token
+		);
+		$this->db->insert('password_resets',$data);
+	}
+
+	public function getInfoFromResetToken($token){
+		$this->db->from('password_resets');
+		$this->db->where('token',$token);
+		$query = $this->db->get();
+
+		$row = $query->row();
+		return $row;
+	}
+
+	public function inResetPassword($username){
+		$this->db->from('password_resets');
+		$this->db->where('username',$username);
+		$query = $this->db->get();
+
+		if($query->num_rows()==0){
+			return false;
+		}
+		return true;
+	}
+
+	public function updatePassword($password,$username){
+		$user = $username;
+		$this->db->where('username',$user);
+		$this->db->update('users', array('password' => $password));
+
+		$this->db->delete('password_resets', array('username' => $user));
 	}
 }
